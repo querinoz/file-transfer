@@ -13,7 +13,7 @@ pipeline {
                 echo "Fazendo checkout do repositório..."
                 git branch: "${BRANCH}",
                     url: "${REPO_URL}",
-                    credentialsId: 'github-token'   // ID criado nas credenciais do Jenkins
+                    credentialsId: 'file-transfer-token'   // ID criado nas credenciais do Jenkins
             }
             post {
                 failure {
@@ -36,10 +36,10 @@ pipeline {
         stage('Commit e Push') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+                    withCredentials([usernamePassword(credentialsId: 'file-transfer-token', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
                         sh """
-                            git config user.name "Jenkins Transfer Pipeline"
-                            git config user.email "jenkins-bot@example.com"
+                            git config user.name "querinoz"
+                            git config user.email "eduardooquerino@gmail.com"
                             git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/querinoz/file-transfer.git
 
                             echo "Adicionando e enviando arquivo..."
