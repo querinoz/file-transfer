@@ -27,7 +27,7 @@ pipeline {
                 script {
                     def dataAtual = sh(script: "date +%F", returnStdout: true).trim()
                     sh """
-                        echo 'Conteúdo do arquivo gerado em ${dataAtual}' > arquivo_a_enviar.dat
+                        echo 'Conteúdo do arquivo gerado em ${dataAtual}' > arquivox.dat
                     """
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
                             git remote set-url origin https://${GIT_USER}:${GIT_TOKEN}@github.com/querinoz/file-transfer.git
 
                             echo "Adicionando e enviando arquivo..."
-                            git add arquivo_a_enviar.dat || true
+                            git add arquivox.dat || true
                             git commit -m "Transferencia: Adiciona arquivo via Pipeline Jenkins" || echo "Nada para commitar"
                             git push origin ${BRANCH}
                         """
